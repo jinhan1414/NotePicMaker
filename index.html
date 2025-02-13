@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文字转图片样式</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="lib/html2canvas.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="input-section">
+            <h2>输入文字</h2>
+            <textarea id="textInput" rows="10" placeholder="请输入要转换的文字..."></textarea>
+        </div>
+        <div class="preview-section">
+            <div class="preview-header">
+                <h2>预览效果</h2>
+                <button id="exportBtn" class="export-btn">导出图片</button>
+            </div>
+            <div id="previewArea" class="preview-area">
+                <div id="textPreview" class="text-preview"></div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html> 
