@@ -6,12 +6,21 @@
     <title>文字转图片样式</title>
     <link rel="stylesheet" href="styles.css">
     <script src="lib/html2canvas.min.js"></script>
+    <script type="module" src="js/main.js"></script>
 </head>
 <body>
     <div class="container">
         <div class="input-section">
             <h2>输入文字</h2>
+            <div class="style-selector">
+                <button class="style-btn active" data-style="note">读书笔记</button>
+                <button class="style-btn" data-style="poetry">古诗词</button>
+            </div>
             <textarea id="textInput" rows="10" placeholder="请输入要转换的文字..."></textarea>
+            <div class="poetry-insight-wrapper" style="display: none;">
+                <h3>古诗感悟</h3>
+                <textarea id="insightInput" rows="6" placeholder="请输入对这首诗的感悟..."></textarea>
+            </div>
         </div>
         <div class="preview-section">
             <div class="preview-header">
@@ -23,6 +32,5 @@
             </div>
         </div>
     </div>
-    <script src="script.js"></script>
 </body>
 </html> 

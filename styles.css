@@ -120,12 +120,22 @@ button:hover {
 }
 
 .content-title {
-    font-size: 22px;
+    font-size: 24px;
     color: #222;
     text-align: center;
     margin: 20px 0 30px;
     font-weight: bold;
     font-family: "KaiTi", "楷体", serif;
+    letter-spacing: 2px;
+    position: relative;
+}
+
+.content-title::before,
+.content-title::after {
+    content: "";
+    color: #862d2d;
+    margin: 0 15px;
+    opacity: 0.6;
 }
 
 .paragraph {
@@ -165,4 +175,168 @@ button:hover {
 .export-btn:hover {
     background-color: #6e2424;
     display: inline-block;
+}
+
+.style-selector {
+    margin-bottom: 15px;
+    display: flex;
+    gap: 10px;
+}
+
+.style-btn {
+    padding: 8px 16px;
+    border: 1px solid #862d2d;
+    background: white;
+    color: #862d2d;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.3s;
+    display: inline-block;
+}
+
+.style-btn:hover {
+    background: #f4f1e8;
+    display: inline-block;
+}
+
+.style-btn.active {
+    background: #862d2d;
+    color: white;
+    display: inline-block;
+}
+
+/* 古诗词样式 */
+.text-preview.poetry {
+    /* 保持与基础样式一致 */
+}
+
+.poetry-content {
+    position: relative;
+    z-index: 1;
+}
+
+.poetry .content-title {
+    /* 保持与基础样式一致 */
+}
+
+.poetry .author {
+    text-align: center;
+    font-size: 18px;
+    margin: 0px 0 20px;
+    color: #666;
+}
+
+.verse-group {
+    margin-bottom: 15px;
+}
+
+.verse-group:last-child {
+    margin-bottom: 0;
+}
+
+.poetry .verse {
+    text-align: center;
+    font-size: 18px;
+    line-height: 1.8;
+    margin-bottom: 15px;
+}
+
+.poetry .note {
+    margin-top: 30px;
+    font-size: 16px;
+    color: #666;
+    line-height: 1.6;
+    border-top: 0.5px solid rgba(134, 45, 45, 0.5);
+    padding-top: 20px;
+    font-family: "Microsoft YaHei", sans-serif;
+}
+
+.poetry::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 150px;
+    height: 150px;
+    background-image: url('img/icon.png');
+    background-size: contain;
+    opacity: 0.03;
+    pointer-events: none;
+}
+
+.poetry-insight-wrapper {
+    margin-top: 20px;
+}
+
+.poetry-insight-wrapper h3 {
+    color: #862d2d;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+#insightInput {
+    margin-bottom: 15px;
+}
+
+/* 修改古诗感悟的展示样式 */
+.poetry .insight {
+    margin-top: 40px;
+    padding: 25px;
+    background: rgba(134, 45, 45, 0.04);
+    border-radius: 8px;
+    position: relative;
+    border: 1px solid rgba(134, 45, 45, 0.15);
+    box-shadow: 0 2px 10px rgba(134, 45, 45, 0.05);
+}
+
+.poetry .insight::before {
+    content: "再读感悟";
+    position: absolute;
+    top: -12px;
+    left: 30px;
+    background: #f4f1e8;
+    padding: 0 15px;
+    color: #862d2d;
+    font-size: 16px;
+    font-family: "Microsoft YaHei", sans-serif;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.poetry .insight::after {
+    content: "「";
+    position: absolute;
+    top: 10px;
+    left: 15px;
+    font-size: 60px;
+    color: rgba(134, 45, 45, 0.1);
+    font-family: "Microsoft YaHei", sans-serif;
+    line-height: 1;
+}
+
+.poetry .insight-content {
+    font-size: 16px;
+    line-height: 2;
+    color: #444;
+    font-family: "Microsoft YaHei", sans-serif;
+    text-align: justify;
+    white-space: pre-wrap;
+    padding-left: 25px;
+    position: relative;
+    text-indent: 2em;
+    letter-spacing: 1px;
+}
+
+.poetry .insight-content::after {
+    content: "」";
+    position: absolute;
+    bottom: -20px;
+    right: 0;
+    font-size: 60px;
+    color: rgba(134, 45, 45, 0.1);
+    font-family: "Microsoft YaHei", sans-serif;
+    line-height: 1;
+    transform: translateY(50%);
 }
