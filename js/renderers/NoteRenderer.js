@@ -2,6 +2,7 @@ import { BaseRenderer } from '../core/BaseRenderer.js';
 
 export class NoteRenderer extends BaseRenderer {
     render(paragraphs) {
+        this.lastParagraphs = paragraphs;
         this.container.innerHTML = '';
         this.container.classList.remove('poetry');
         this.container.appendChild(this.createHeader());
@@ -29,6 +30,11 @@ export class NoteRenderer extends BaseRenderer {
                     this.container.appendChild(p);
                 }
             });
+
+            // 添加引导关注区域
+            if (this.showGuide) {
+                this.container.appendChild(this.createGuideFooter());
+            }
         }
     }
 } 

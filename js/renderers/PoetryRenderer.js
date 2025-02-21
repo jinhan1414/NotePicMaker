@@ -1,25 +1,71 @@
 import { BaseRenderer } from '../core/BaseRenderer.js';
 
 export class PoetryRenderer extends BaseRenderer {
-    render(paragraphs, insightText) {
+    render(paragraphs, insight = '') {
+        this.lastParagraphs = paragraphs;
+        this.lastInsight = insight;
         this.container.innerHTML = '';
         this.container.classList.add('poetry');
         this.container.appendChild(this.createHeader());
 
-        const contentWrapper = document.createElement('div');
-        contentWrapper.className = 'poetry-content';
-        
         if (paragraphs.length > 0) {
-            this.renderTitle(contentWrapper, paragraphs[0]);
-            
+            const content = document.createElement('div');
+            content.className = 'poetry-content';
+
+            const title = document.createElement('div');
+            title.className = 'content-title';
+            title.textContent = paragraphs[0];
+            content.appendChild(title);
+
             if (paragraphs.length > 1) {
-                this.renderAuthor(contentWrapper, paragraphs[1]);
-                this.renderVerses(contentWrapper, paragraphs.slice(2));
-                this.renderInsight(contentWrapper, insightText);
+                const author = document.createElement('div');
+                author.className = 'author';
+                author.textContent = paragraphs[1];
+                content.appendChild(author);
+
+                let currentGroup = null;
+                paragraphs.slice(2).forEach(verse => {
+                    if (!verse.trim()) {
+                        if (currentGroup) {
+                            content.appendChild(currentGroup);
+                            currentGroup = null;
+                        }
+                        return;
+                    }
+
+                    if (!currentGroup) {
+                        currentGroup = document.createElement('div');
+                        currentGroup.className = 'verse-group';
+                    }
+
+                    const p = document.createElement('div');
+                    p.className = 'verse';
+                    p.textContent = verse;
+                    currentGroup.appendChild(p);
+                });
+
+                if (currentGroup) {
+                    content.appendChild(currentGroup);
+                }
+            }
+
+            this.container.appendChild(content);
+
+            if (insight) {
+                const insightDiv = document.createElement('div');
+                insightDiv.className = 'insight';
+                const insightContent = document.createElement('div');
+                insightContent.className = 'insight-content';
+                insightContent.textContent = insight;
+                insightDiv.appendChild(insightContent);
+                this.container.appendChild(insightDiv);
+            }
+
+            // 添加引导关注区域
+            if (this.showGuide) {
+                this.container.appendChild(this.createGuideFooter());
             }
         }
-        
-        this.container.appendChild(contentWrapper);
     }
 
     renderTitle(container, title) {

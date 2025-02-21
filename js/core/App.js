@@ -3,15 +3,18 @@ import { UIManager } from '../managers/UIManager.js';
 import { ExportManager } from '../managers/ExportManager.js';
 import { RendererFactory } from './RendererFactory.js';
 import { NoteRenderer } from '../renderers/NoteRenderer.js';
+import { MarkedNoteRenderer } from '../renderers/MarkedNoteRenderer.js';
 import { PoetryRenderer } from '../renderers/PoetryRenderer.js';
 
 export class App {
     constructor() {
         this.ui = UIManager.init();
         this.currentStyle = StorageManager.get(StorageManager.keys.STYLE) || 'note';
+        this.currentTheme = StorageManager.get(StorageManager.keys.THEME) || 'elegant';
         
         // 注册渲染器
         RendererFactory.register('note', new NoteRenderer(this.ui.elements.textPreview));
+        RendererFactory.register('marked-note', new MarkedNoteRenderer(this.ui.elements.textPreview));
         RendererFactory.register('poetry', new PoetryRenderer(this.ui.elements.textPreview));
         
         this.initializeState();
@@ -28,6 +31,10 @@ export class App {
         // 恢复样式选择
         this.ui.updateStyleButtons(this.currentStyle);
         this.ui.toggleInsightInput(this.currentStyle === 'poetry');
+        
+        // 恢复主题选择
+        this.ui.updateThemeOptions(this.currentTheme);
+        this.ui.updatePreviewTheme(this.currentTheme);
         
         this.updatePreview();
     }

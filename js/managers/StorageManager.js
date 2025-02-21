@@ -1,8 +1,9 @@
 export const StorageManager = {
     keys: {
-        STYLE: 'currentStyle',
-        TEXT: 'textContent',
-        INSIGHT: 'insightContent'
+        TEXT: 'text',
+        STYLE: 'style',
+        INSIGHT: 'insight',
+        THEME: 'theme'
     },
     
     get(key) {

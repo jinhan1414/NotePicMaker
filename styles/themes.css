@@ -1,0 +1,162 @@
+/* 主题选择器样式 */
+.theme-selector {
+    margin: 15px 0;
+}
+
+.theme-selector h3 {
+    font-size: 16px;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.theme-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.theme-option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    padding: 8px 12px;
+    border-radius: 6px;
+    transition: all 0.2s;
+    min-width: 120px;
+}
+
+.theme-option:hover {
+    background-color: rgba(134, 45, 45, 0.05);
+}
+
+.theme-option input[type="radio"] {
+    display: none;
+}
+
+.theme-preview {
+    width: 24px;
+    height: 24px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    position: relative;
+    transition: all 0.2s;
+    flex-shrink: 0;
+    overflow: hidden;
+}
+
+.theme-name {
+    font-size: 14px;
+    color: #666;
+    transition: color 0.2s;
+    white-space: nowrap;
+}
+
+/* 选中状态 */
+.theme-option.active .theme-preview {
+    border: 2px solid #862d2d;
+}
+
+.theme-option.active .theme-name {
+    color: #862d2d;
+    font-weight: 500;
+}
+
+/* 主题预览小样式 */
+.theme-preview::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* 默认主题 - 典雅米色 */
+.theme-preview[data-theme="elegant"]::before {
+    background-color: #f4f1e8;
+}
+
+.text-preview[data-theme="elegant"] {
+    background-color: #f4f1e8;
+    color: #333;
+}
+
+.text-preview[data-theme="elegant"] .insight::before {
+    background: #f4f1e8;
+}
+
+/* 清新蓝调主题 */
+.theme-preview[data-theme="fresh"]::before {
+    background-color: #f0f7ff;
+}
+
+.text-preview[data-theme="fresh"] {
+    background-color: #f0f7ff;
+    color: #2c4964;
+}
+
+.text-preview[data-theme="fresh"] .insight::before {
+    background: #f0f7ff;
+}
+
+.text-preview[data-theme="fresh"] .header {
+    border-color: rgba(44, 73, 100, 0.5);
+}
+
+.text-preview[data-theme="fresh"] .logo-text {
+    color: #2c4964;
+}
+
+.text-preview[data-theme="fresh"] .logo-subtitle {
+    color: #4a7396;
+}
+
+/* 暗夜主题 */
+.theme-preview[data-theme="dark"]::before {
+    background-color: #1a1a1a;
+}
+
+.text-preview[data-theme="dark"] {
+    background-color: #1a1a1a;
+    color: #e0e0e0;
+}
+
+.text-preview[data-theme="dark"] .insight::before {
+    background: #1a1a1a;
+    color: #e0e0e0;
+}
+
+.text-preview[data-theme="dark"] .header {
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.text-preview[data-theme="dark"] .logo-text {
+    color: #e0e0e0;
+}
+
+.text-preview[data-theme="dark"] .logo-subtitle {
+    color: #888;
+}
+
+.text-preview[data-theme="dark"] .content-title {
+    color: #fff;
+}
+
+.text-preview[data-theme="dark"] .insight {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.text-preview[data-theme="dark"] .insight::before {
+    color: #888;
+}
+
+.text-preview[data-theme="dark"] .insight-content {
+    color: #ccc;
+}
+
+/* 通用过渡效果 */
+.text-preview {
+    transition: all 0.3s ease;
+}

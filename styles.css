@@ -40,9 +40,9 @@ textarea {
 }
 
 .controls,
-button,
-button:hover {
-    display: none;
+button {
+    display: inline-flex;
+    align-items: center;
 }
 
 .preview-area {
@@ -59,7 +59,6 @@ button:hover {
     font-size: 18px;
     line-height: 1.8;
     text-align: justify;
-    background-color: #f4f1e8;
     padding: 25px 35px;
     border-radius: 4px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
@@ -161,7 +160,7 @@ button:hover {
 }
 
 .export-btn {
-    display: inline-block;
+    display: inline-flex;
     background-color: #862d2d;
     color: white;
     padding: 8px 16px;
@@ -174,7 +173,6 @@ button:hover {
 
 .export-btn:hover {
     background-color: #6e2424;
-    display: inline-block;
 }
 
 .style-selector {
@@ -192,18 +190,50 @@ button:hover {
     cursor: pointer;
     font-size: 14px;
     transition: all 0.3s;
-    display: inline-block;
 }
 
 .style-btn:hover {
     background: #f4f1e8;
-    display: inline-block;
 }
 
 .style-btn.active {
     background: #862d2d;
     color: white;
+}
+
+.bg-color-selector {
+    margin: 15px 0;
+}
+
+.bg-color-selector h3 {
+    font-size: 16px;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.color-options {
+    display: flex;
+    gap: 10px;
+}
+
+.color-btn {
+    padding: 8px 16px;
+    border: 1px solid #ddd;
+    background: white;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.3s;
     display: inline-block;
+}
+
+.color-btn:hover {
+    border-color: #862d2d;
+}
+
+.color-btn.active {
+    border-color: #862d2d;
+    box-shadow: 0 0 0 2px rgba(134, 45, 45, 0.2);
 }
 
 /* 古诗词样式 */

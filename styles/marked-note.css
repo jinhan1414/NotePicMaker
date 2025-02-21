@@ -1,0 +1,454 @@
+/* 标记文本样式 */
+.paragraph {
+    line-height: 2;
+    margin-bottom: 1em;
+    white-space: pre-wrap;
+}
+
+/* 标记说明弹窗 */
+.marked-note-guide {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    width: 90%;
+    max-width: 600px;
+    max-height: 80vh;
+    overflow-y: auto;
+    z-index: 1000;
+}
+
+.guide-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.guide-header h3 {
+    margin: 0;
+    color: #333;
+}
+
+.close-guide {
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: #666;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    transition: all 0.2s;
+}
+
+.close-guide:hover {
+    background: rgba(0, 0, 0, 0.05);
+    color: #333;
+}
+
+.guide-content p {
+    margin: 0 0 15px;
+    color: #666;
+}
+
+.guide-examples {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.example {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px;
+    background: #f5f5f5;
+    border-radius: 4px;
+}
+
+.example code {
+    font-family: monospace;
+    color: #862d2d;
+    background: rgba(134, 45, 45, 0.1);
+    padding: 2px 4px;
+    border-radius: 3px;
+}
+
+.example span {
+    color: #666;
+    font-size: 14px;
+}
+
+.guide-prompt {
+    background: #f8f8f8;
+    padding: 15px;
+    border-radius: 6px;
+    margin-top: 20px;
+}
+
+.guide-prompt h4 {
+    margin: 0 0 10px;
+    color: #333;
+}
+
+.guide-prompt pre {
+    background: #fff;
+    padding: 15px;
+    border-radius: 4px;
+    border: 1px solid #eee;
+    overflow-x: auto;
+    white-space: pre-wrap;
+    color: #333;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+/* 下划线 */
+.marked-underline {
+    border-bottom: 2px solid #862d2d;
+    padding-bottom: 2px;
+    transition: border-color 0.2s ease;
+}
+
+.marked-underline:hover {
+    border-bottom-color: #d44;
+}
+
+/* 高亮 */
+.marked-highlight {
+    background: rgba(255, 247, 0, 0.3);
+    padding: 0 2px;
+    border-radius: 2px;
+}
+
+/* 重点 */
+.marked-important {
+    color: #d44;
+    font-weight: 600;
+    padding: 0 2px;
+    position: relative;
+    transition: all 0.2s ease;
+}
+
+.marked-important:hover {
+    color: #f33;
+}
+
+.marked-important::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: rgba(221, 68, 68, 0.15);
+    border-radius: 2px;
+}
+
+/* 注释 */
+.marked-note {
+    color: #666;
+    font-size: 0.9em;
+    font-style: italic;
+}
+
+/* 引用 */
+.marked-quote {
+    border-left: 3px solid #862d2d;
+    padding-left: 10px;
+    font-style: italic;
+    color: #666;
+    margin: 10px 0;
+    display: block;
+}
+
+/* 删除线 */
+.marked-del {
+    text-decoration: line-through;
+    color: #999;
+}
+
+/* 斜体 */
+.marked-italic {
+    font-style: italic;
+}
+
+/* 加粗 */
+.marked-bold {
+    font-weight: bold;
+}
+
+/* 主题适配 */
+.text-preview[data-theme="fresh"] .marked-important {
+    color: #2c4964;
+    background: rgba(44, 73, 100, 0.08);
+    border-radius: 3px;
+}
+
+.text-preview[data-theme="fresh"] .marked-important::after {
+    background: rgba(44, 73, 100, 0.15);
+}
+
+.text-preview[data-theme="fresh"] .marked-quote {
+    border-left-color: #2c4964;
+}
+
+.text-preview[data-theme="fresh"] .marked-underline {
+    border-bottom-color: #2c4964;
+}
+
+.text-preview[data-theme="fresh"] .marked-underline:hover {
+    border-bottom-color: #3a5f82;
+}
+
+.text-preview[data-theme="dark"] .marked-important {
+    color: #ff9e9e;
+    background: rgba(255, 158, 158, 0.1);
+    border-radius: 3px;
+}
+
+.text-preview[data-theme="dark"] .marked-important::after {
+    background: rgba(255, 158, 158, 0.2);
+}
+
+.text-preview[data-theme="dark"] .marked-quote {
+    border-left-color: #ff9e9e;
+    color: #888;
+}
+
+.text-preview[data-theme="dark"] .marked-note {
+    color: #888;
+}
+
+.text-preview[data-theme="dark"] .marked-underline {
+    border-bottom-color: #ff9e9e;
+}
+
+.text-preview[data-theme="dark"] .marked-underline:hover {
+    border-bottom-color: #ffb6b6;
+}
+
+.text-preview[data-theme="dark"] .marked-highlight {
+    background: rgba(255, 247, 0, 0.15);
+}
+
+.text-preview[data-theme="dark"] .marked-del {
+    color: #666;
+}
+
+/* 标记笔记工具栏 */
+.marked-note-tools {
+    margin: 10px 0;
+    padding: 10px;
+    background: #f8f8f8;
+    border-radius: 6px;
+    display: none;
+    align-items: center;
+    gap: 10px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+}
+
+.marked-note-tools.visible {
+    display: flex;
+    opacity: 1;
+    visibility: visible;
+}
+
+.help-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: white;
+    color: #666;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.help-btn:hover {
+    background: #f0f0f0;
+    border-color: #ccc;
+    color: #333;
+}
+
+.help-btn svg {
+    opacity: 0.7;
+    transition: opacity 0.2s ease-in-out;
+}
+
+.help-btn:hover svg {
+    opacity: 1;
+}
+
+/* 引导关注按钮包装器 */
+.guide-toggle-wrapper {
+    margin: 15px 0;
+    padding: 10px;
+    background: #f8f8f8;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+/* 开关按钮样式 */
+.toggle-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: white;
+    color: #666;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.toggle-btn:hover {
+    background: #f0f0f0;
+    border-color: #ccc;
+    color: #333;
+}
+
+.toggle-btn input[type="checkbox"] {
+    display: none;
+}
+
+.toggle-btn .toggle-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.toggle-btn svg {
+    opacity: 0.7;
+    transition: opacity 0.2s ease-in-out;
+}
+
+.toggle-btn:hover svg {
+    opacity: 1;
+}
+
+.toggle-btn input[type="checkbox"]:checked+.toggle-label {
+    color: #862d2d;
+}
+
+.toggle-btn input[type="checkbox"]:checked+.toggle-label svg {
+    opacity: 1;
+    color: #862d2d;
+}
+
+/* 引导关注区域样式 */
+.guide-footer {
+    margin-top: 30px;
+    padding: 20px;
+    text-align: center;
+    font-family: "Microsoft YaHei", sans-serif;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.3s ease-in-out;
+    border-top: 1px dashed rgba(134, 45, 45, 0.2);
+}
+
+.guide-footer.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.guide-footer .guide-text {
+    color: #862d2d;
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: 1px;
+}
+
+.guide-main {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.guide-actions {
+    margin: 15px 0;
+    font-size: 17px;
+    font-weight: 500;
+    color: #862d2d;
+}
+
+.action {
+    position: relative;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.action:hover {
+    color: #d44;
+    transform: translateY(-2px);
+}
+
+.action-dot {
+    margin: 0 8px;
+    color: #999;
+    font-weight: normal;
+}
+
+.guide-reward {
+    font-size: 15px;
+    color: #666;
+    margin-top: 12px;
+}
+
+/* 主题适配 */
+.text-preview[data-theme="fresh"] .guide-footer {
+    border-color: rgba(44, 73, 100, 0.2);
+}
+
+.text-preview[data-theme="fresh"] .guide-text {
+    color: #2c4964;
+}
+
+.text-preview[data-theme="dark"] .guide-footer {
+    border-color: rgba(255, 158, 158, 0.2);
+}
+
+.text-preview[data-theme="dark"] .guide-text {
+    color: #ff9e9e;
+}
+
+.text-preview[data-theme="dark"] .guide-main {
+    color: #e0e0e0;
+}
+
+.text-preview[data-theme="dark"] .guide-actions {
+    color: #ff9e9e;
+}
+
+.text-preview[data-theme="dark"] .action:hover {
+    color: #ffb6b6;
+}
+
+.text-preview[data-theme="dark"] .guide-reward {
+    color: #888;
+}
+
+.text-preview[data-theme="dark"] .action-dot {
+    color: #666;
+}
