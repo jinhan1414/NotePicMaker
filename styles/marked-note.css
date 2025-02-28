@@ -1,7 +1,7 @@
 /* 标记文本样式 */
 .paragraph {
     line-height: 2;
-    margin-bottom: 1em;
+    /* margin-bottom: 1em; */
     white-space: pre-wrap;
 }
 
