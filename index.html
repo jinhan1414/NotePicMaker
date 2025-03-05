@@ -8,7 +8,47 @@
     <link rel="stylesheet" href="styles/themes.css">
     <link rel="stylesheet" href="styles/marked-note.css">
     <script src="lib/html2canvas.min.js"></script>
+    <script src="https://cdn.tiny.cloud/1/jqt84z5ffzl048t0shtk8n1oz5uqx8lwmetkmtlh8mm0fks4/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
     <script type="module" src="js/main.js"></script>
+    <script>
+        function handleTab(e) {
+            if (e.key == 'Tab') {
+                e.preventDefault();
+                var start = e.target.selectionStart;
+                var end = e.target.selectionEnd;
+                var value = e.target.value;
+                
+                if (start === end) {
+                    // 如果没有选中文本，插入4个空格
+                    e.target.value = value.substring(0, start) + "    " + value.substring(end);
+                    e.target.selectionStart = e.target.selectionEnd = start + 4;
+                } else {
+                    // 如果选中了文本，处理选中的每一行
+                    var selectedText = value.substring(start, end);
+                    var lines = selectedText.split('\n');
+                    
+                    if (e.shiftKey) {
+                        // Shift+Tab 减少缩进
+                        var modifiedLines = lines.map(line => {
+                            if (line.startsWith('    ')) return line.substring(4);
+                            if (line.startsWith('\t')) return line.substring(1);
+                            return line;
+                        });
+                    } else {
+                        // Tab 增加缩进
+                        var modifiedLines = lines.map(line => '    ' + line);
+                    }
+                    
+                    var modifiedText = modifiedLines.join('\n');
+                    e.target.value = value.substring(0, start) + modifiedText + value.substring(end);
+                    
+                    // 保持选区
+                    e.target.selectionStart = start;
+                    e.target.selectionEnd = start + modifiedText.length;
+                }
+            }
+        }
+    </script>
 </head>
 <body>
     <div class="container">
@@ -17,6 +57,7 @@
             <div class="style-selector">
                 <button class="style-btn active" data-style="note">普通笔记</button>
                 <button class="style-btn" data-style="marked-note">标记笔记</button>
+                <button class="style-btn" data-style="rich-note">富文本笔记</button>
                 <button class="style-btn" data-style="poetry">古诗词</button>
             </div>
             <div class="guide-toggle-wrapper">
@@ -86,10 +127,13 @@
                     </label>
                 </div>
             </div>
-            <textarea id="textInput" rows="10" placeholder="请输入要转换的文字..."></textarea>
+            <textarea id="textInput" rows="10" placeholder="请输入要转换的文字..." onkeydown="handleTab(event)"></textarea>
+            <div id="richTextEditor" style="display: none;">
+                <textarea id="richTextArea"></textarea>
+            </div>
             <div class="poetry-insight-wrapper" style="display: none;">
                 <h3>古诗感悟</h3>
-                <textarea id="insightInput" rows="6" placeholder="请输入对这首诗的感悟..."></textarea>
+                <textarea id="insightInput" rows="6" placeholder="请输入对这首诗的感悟..." onkeydown="handleTab(event)"></textarea>
             </div>
         </div>
         <div class="preview-section">
@@ -97,7 +141,7 @@
                 <h2>预览效果</h2>
                 <button id="exportBtn" class="export-btn">导出图片</button>
             </div>
-            <div id="previewArea" class="preview-area" style="width: 485px;min-height: 582px;">
+            <div id="previewArea" class="preview-area" style="width: 515px;min-height: 582px;">
                 <div id="textPreview" class="text-preview"></div>
             </div>
         </div>

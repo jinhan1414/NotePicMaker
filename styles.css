@@ -46,7 +46,8 @@ button {
 }
 
 .preview-area {
-    min-height: 300px;
+    width: 515px;
+    min-height: 582px;
     background-color: #f9f9f9;
     border: 1px solid #ddd;
     border-radius: 4px;
@@ -54,6 +55,9 @@ button {
 }
 
 .text-preview {
+    width: 100%;
+    min-height: 542px;
+    /* 582px - 40px(padding) */
     color: #333;
     font-family: "KaiTi", "楷体", serif;
     font-size: 18px;
@@ -62,7 +66,7 @@ button {
     padding: 25px 35px;
     border-radius: 4px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-    position: relative;
+    background-color: white;
 }
 
 .header {
@@ -369,4 +373,215 @@ button {
     font-family: "Microsoft YaHei", sans-serif;
     line-height: 1;
     transform: translateY(50%);
+}
+
+.rich-note p {
+    margin: 0.8em 0;
+}
+
+.rich-note table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1em 0;
+}
+
+.rich-note table td,
+.rich-note table th {
+    border: 1px solid var(--border-color);
+    padding: 8px;
+}
+
+/* 确保编辑器内容区域样式正确 */
+.tox-edit-area__iframe {
+    background-color: white !important;
+}
+
+[data-theme="dark"] .tox-edit-area__iframe {
+    background-color: #1e1e1e !important;
+}
+
+.rich-note h1,
+.rich-note h2,
+.rich-note h3,
+.rich-note h4,
+.rich-note h5,
+.rich-note h6 {
+    margin: 1em 0 0.5em;
+    font-weight: 600;
+    line-height: 1.25;
+}
+
+.rich-note h1 {
+    font-size: 2em;
+}
+
+.rich-note h2 {
+    font-size: 1.5em;
+}
+
+.rich-note h3 {
+    font-size: 1.25em;
+}
+
+.rich-note h4 {
+    font-size: 1em;
+}
+
+.rich-note ul,
+.rich-note ol {
+    margin: 0.5em 0;
+    padding-left: 2em;
+}
+
+.rich-note li {
+    margin: 0.3em 0;
+}
+
+.rich-note table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 1em 0;
+}
+
+.rich-note th,
+.rich-note td {
+    border: 1px solid var(--border-color);
+    padding: 0.5em;
+}
+
+.rich-note th {
+    background-color: var(--bg-color-light);
+}
+
+.rich-note blockquote {
+    margin: 1em 0;
+    padding: 0.5em 1em;
+    border-left: 4px solid var(--border-color);
+    background-color: var(--bg-color-light);
+}
+
+.rich-note code {
+    font-family: monospace;
+    background-color: var(--bg-color-light);
+    padding: 0.2em 0.4em;
+    border-radius: 3px;
+}
+
+.rich-note pre {
+    background-color: var(--bg-color-light);
+    padding: 1em;
+    border-radius: 4px;
+    overflow-x: auto;
+}
+
+.rich-note pre code {
+    background-color: transparent;
+    padding: 0;
+}
+
+.rich-note a {
+    color: var(--link-color);
+    text-decoration: none;
+}
+
+.rich-note a:hover {
+    text-decoration: underline;
+}
+
+/* TinyMCE编辑器容器样式 */
+#richTextEditor {
+    margin: 1em 0;
+    /* 创建新的堆叠上下文，避免z-index冲突 */
+    isolation: isolate;
+}
+
+/* TinyMCE编辑器容器样式 */
+.tox-tinymce {
+    border: 1px solid var(--border-color) !important;
+    border-radius: 4px !important;
+}
+
+/* 限制TinyMCE弹出框的影响范围 */
+.tox.tox-tinymce-aux {
+    z-index: 99999;
+    /* 确保弹出框在最上层 */
+}
+
+/* 覆盖TinyMCE默认字体 */
+.tox .tox-edit-area__iframe {
+    font-family: "Microsoft YaHei", sans-serif !important;
+}
+
+/* 修复TinyMCE菜单样式 */
+.tox .tox-menu {
+    background-color: white !important;
+    border: 1px solid #ccc !important;
+}
+
+.tox .tox-collection__item {
+    color: #333 !important;
+}
+
+.tox .tox-collection__item--active {
+    background-color: #e6e6e6 !important;
+}
+
+/* 修复TinyMCE按钮样式 */
+.tox .tox-tbtn {
+    color: #333 !important;
+}
+
+.tox .tox-tbtn:hover {
+    background-color: #e6e6e6 !important;
+}
+
+/* 适配深色主题 */
+[data-theme="dark"] .tox-tinymce {
+    border-color: var(--border-color-dark) !important;
+}
+
+[data-theme="dark"] .tox .tox-menu {
+    background-color: #2d2d2d !important;
+    border-color: #444 !important;
+}
+
+[data-theme="dark"] .tox .tox-collection__item {
+    color: #fff !important;
+}
+
+[data-theme="dark"] .tox .tox-collection__item--active {
+    background-color: #444 !important;
+}
+
+[data-theme="dark"] .tox .tox-tbtn {
+    color: #fff !important;
+}
+
+[data-theme="dark"] .tox .tox-tbtn:hover {
+    background-color: #444 !important;
+}
+
+.rich-note p {
+    margin: 0.8em 0;
+}
+
+.rich-note table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1em 0;
+}
+
+.rich-note table td,
+.rich-note table th {
+    border: 1px solid var(--border-color);
+    padding: 8px;
+}
+
+/* 确保编辑器内容区域样式正确 */
+.tox-edit-area__iframe {
+    background-color: white !important;
+}
+
+[data-theme="dark"] .tox-edit-area__iframe {
+    background-color: #1e1e1e !important;
 }

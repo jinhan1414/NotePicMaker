@@ -5,6 +5,7 @@ import { RendererFactory } from './RendererFactory.js';
 import { NoteRenderer } from '../renderers/NoteRenderer.js';
 import { MarkedNoteRenderer } from '../renderers/MarkedNoteRenderer.js';
 import { PoetryRenderer } from '../renderers/PoetryRenderer.js';
+import { RichNoteRenderer } from '../renderers/RichNoteRenderer.js';
 
 export class App {
     constructor() {
@@ -15,15 +16,51 @@ export class App {
         // 注册渲染器
         RendererFactory.register('note', new NoteRenderer(this.ui.elements.textPreview));
         RendererFactory.register('marked-note', new MarkedNoteRenderer(this.ui.elements.textPreview));
+        RendererFactory.register('rich-note', new RichNoteRenderer(this.ui.elements.textPreview));
         RendererFactory.register('poetry', new PoetryRenderer(this.ui.elements.textPreview));
         
         this.initializeState();
         this.bindEvents();
+        this.initRichTextEditor();
+    }
+    
+    initRichTextEditor() {
+        tinymce.init({
+            selector: '#richTextArea',
+            language: 'zh_CN',
+            language_url: 'https://cdn.tiny.cloud/1/jqt84z5ffzl048t0shtk8n1oz5uqx8lwmetkmtlh8mm0fks4/tinymce/6/langs/zh_CN.js',
+            plugins: 'lists link image table code help wordcount',
+            toolbar: 'undo redo | blocks | bold italic | alignleft aligncenter alignright | indent outdent | bullist numlist | code | table',
+            height: 400,
+            content_css: false,
+            content_style: `
+                body { 
+                    font-family: "Microsoft YaHei", sans-serif;
+                    font-size: 16px;
+                    line-height: 1.6;
+                    margin: 20px;
+                }
+                p { margin: 0 0 1em; }
+                table { border-collapse: collapse; }
+                table td, table th { border: 1px solid #ccc; padding: 5px; }
+            `,
+            skin: 'oxide',
+            content_css_cors: true,
+            setup: (editor) => {
+                editor.on('Change', () => {
+                    StorageManager.set(StorageManager.keys.RICH_TEXT, editor.getContent());
+                    this.updatePreview();
+                });
+            }
+        });
     }
     
     initializeState() {
         // 恢复保存的数据
-        this.ui.elements.textInput.value = StorageManager.get(StorageManager.keys.TEXT) || '';
+        const savedText = StorageManager.get(StorageManager.keys.TEXT) || '';
+        const savedRichText = StorageManager.get(StorageManager.keys.RICH_TEXT) || '';
+        
+        this.ui.elements.textInput.value = savedText;
         if (this.ui.elements.insightInput) {
             this.ui.elements.insightInput.value = StorageManager.get(StorageManager.keys.INSIGHT) || '';
         }
@@ -31,10 +68,22 @@ export class App {
         // 恢复样式选择
         this.ui.updateStyleButtons(this.currentStyle);
         this.ui.toggleInsightInput(this.currentStyle === 'poetry');
+        this.ui.toggleEditors(this.currentStyle);
         
         // 恢复主题选择
         this.ui.updateThemeOptions(this.currentTheme);
         this.ui.updatePreviewTheme(this.currentTheme);
+        
+        // 如果是富文本模式，等待编辑器初始化后设置内容
+        if (this.currentStyle === 'rich-note') {
+            const checkEditor = setInterval(() => {
+                const editor = tinymce.get('richTextArea');
+                if (editor) {
+                    editor.setContent(savedRichText);
+                    clearInterval(checkEditor);
+                }
+            }, 100);
+        }
         
         this.updatePreview();
     }
@@ -61,6 +110,22 @@ export class App {
         
         this.ui.updateStyleButtons(newStyle);
         this.ui.toggleInsightInput(newStyle === 'poetry');
+        this.ui.toggleEditors(newStyle);
+        
+        // 在样式切换时，使用对应的存储内容
+        if (newStyle === 'rich-note') {
+            const editor = tinymce.get('richTextArea');
+            if (editor) {
+                const savedRichText = StorageManager.get(StorageManager.keys.RICH_TEXT) || '';
+                editor.setContent(savedRichText);
+            }
+        } else {
+            const editor = tinymce.get('richTextArea');
+            if (editor) {
+                // 不再需要将富文本内容同步到普通文本框
+                this.ui.elements.textInput.value = StorageManager.get(StorageManager.keys.TEXT) || '';
+            }
+        }
         
         this.updatePreview();
     }
@@ -90,15 +155,22 @@ export class App {
     }
     
     updatePreview() {
-        const text = this.ui.elements.textInput.value;
-        const paragraphs = text.split('\n').filter(p => p.trim());
+        let content;
+        if (this.currentStyle === 'rich-note') {
+            const editor = tinymce.get('richTextArea');
+            content = editor ? editor.getContent() : StorageManager.get(StorageManager.keys.RICH_TEXT) || '';
+        } else {
+            const text = this.ui.elements.textInput.value;
+            content = text.split('\n').filter(p => p.trim());
+        }
+        
         const renderer = RendererFactory.getRenderer(this.currentStyle);
         
         if (this.currentStyle === 'poetry') {
             const insight = this.ui.elements.insightInput?.value || '';
-            renderer.render(paragraphs, insight);
+            renderer.render(content, insight);
         } else {
-            renderer.render(paragraphs);
+            renderer.render(content);
         }
     }
 } 

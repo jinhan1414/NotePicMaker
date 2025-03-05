@@ -1,14 +1,14 @@
-export const UIManager = {
-    elements: {},
-    
-    init() {
-        this.elements = {
+export class UIManager {
+    static init() {
+        const instance = new UIManager();
+        instance.elements = {
             textInput: document.getElementById('textInput'),
-            insightInput: document.getElementById('insightInput'),
-            poetryInsightWrapper: document.querySelector('.poetry-insight-wrapper'),
             textPreview: document.getElementById('textPreview'),
+            insightInput: document.getElementById('insightInput'),
             exportBtn: document.getElementById('exportBtn'),
             styleButtons: document.querySelectorAll('.style-btn'),
+            richTextEditor: document.getElementById('richTextEditor'),
+            poetryInsightWrapper: document.querySelector('.poetry-insight-wrapper'),
             themeOptions: document.querySelectorAll('.theme-option'),
             themeInputs: document.querySelectorAll('input[name="theme"]'),
             markedNoteTools: document.querySelector('.marked-note-tools'),
@@ -18,46 +18,40 @@ export const UIManager = {
         };
         
         // 添加主题切换事件
-        this.elements.themeInputs.forEach(input => {
+        instance.elements.themeInputs.forEach(input => {
             input.addEventListener('change', () => {
                 const newTheme = input.value;
-                this.updateThemeOptions(newTheme);
-                this.updatePreviewTheme(newTheme);
+                instance.updateThemeOptions(newTheme);
+                instance.updatePreviewTheme(newTheme);
             });
         });
 
         // 添加标记说明弹窗事件
-        if (this.elements.helpBtn && this.elements.markedNoteGuide) {
-            this.elements.helpBtn.addEventListener('click', (e) => {
+        if (instance.elements.helpBtn && instance.elements.markedNoteGuide) {
+            instance.elements.helpBtn.addEventListener('click', (e) => {
                 e.preventDefault();
                 e.stopPropagation();
-                this.elements.markedNoteGuide.style.display = 'block';
+                instance.elements.markedNoteGuide.style.display = 'block';
             });
 
-            this.elements.closeGuideBtn.addEventListener('click', () => {
-                this.elements.markedNoteGuide.style.display = 'none';
+            instance.elements.closeGuideBtn.addEventListener('click', () => {
+                instance.elements.markedNoteGuide.style.display = 'none';
             });
 
             // 点击弹窗外部关闭
             document.addEventListener('click', (e) => {
-                if (e.target === this.elements.markedNoteGuide) {
-                    this.elements.markedNoteGuide.style.display = 'none';
+                if (e.target === instance.elements.markedNoteGuide) {
+                    instance.elements.markedNoteGuide.style.display = 'none';
                 }
             });
         }
         
-        return this;
-    },
-    
-    toggleInsightInput(show) {
-        if (this.elements.poetryInsightWrapper) {
-            this.elements.poetryInsightWrapper.style.display = show ? 'block' : 'none';
-        }
-    },
-    
-    updateStyleButtons(currentStyle) {
+        return instance;
+    }
+
+    updateStyleButtons(activeStyle) {
         this.elements.styleButtons.forEach(btn => {
-            btn.classList.toggle('active', btn.dataset.style === currentStyle);
+            btn.classList.toggle('active', btn.dataset.style === activeStyle);
         });
         
         // 显示/隐藏标记笔记工具栏
@@ -66,26 +60,42 @@ export const UIManager = {
             this.elements.markedNoteTools.classList.remove('visible');
             
             // 如果是标记笔记模式，添加visible类
-            if (currentStyle === 'marked-note') {
+            if (activeStyle === 'marked-note') {
                 // 使用 requestAnimationFrame 确保 DOM 更新
                 requestAnimationFrame(() => {
                     this.elements.markedNoteTools.classList.add('visible');
                 });
             }
         }
-    },
-    
-    updateThemeOptions(currentTheme) {
-        this.elements.themeOptions.forEach(option => {
-            const input = option.querySelector('input[type="radio"]');
-            const isActive = input.value === currentTheme;
-            option.classList.toggle('active', isActive);
-        });
-    },
-    
-    updatePreviewTheme(theme) {
-        if (this.elements.textPreview) {
-            this.elements.textPreview.dataset.theme = theme;
+    }
+
+    toggleInsightInput(show) {
+        const wrapper = document.querySelector('.poetry-insight-wrapper');
+        if (wrapper) {
+            wrapper.style.display = show ? 'block' : 'none';
         }
     }
-}; 
+
+    toggleEditors(style) {
+        // 切换普通文本输入和富文本编辑器的显示
+        this.elements.textInput.style.display = style === 'rich-note' ? 'none' : 'block';
+        this.elements.richTextEditor.style.display = style === 'rich-note' ? 'block' : 'none';
+    }
+
+    updateThemeOptions(activeTheme) {
+        this.elements.themeOptions.forEach(option => {
+            const input = option.querySelector('input');
+            if (input.value === activeTheme) {
+                option.classList.add('active');
+                input.checked = true;
+            } else {
+                option.classList.remove('active');
+                input.checked = false;
+            }
+        });
+    }
+
+    updatePreviewTheme(theme) {
+        this.elements.textPreview.dataset.theme = theme;
+    }
+} 

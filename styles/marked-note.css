@@ -452,3 +452,18 @@
 .text-preview[data-theme="dark"] .action-dot {
     color: #666;
 }
+
+/* 确保文本预览区域的空格和换行正确显示 */
+#previewArea,
+#textPreview,
+#textPreview>* {
+    white-space: pre-wrap !important;
+    word-wrap: break-word !important;
+    word-break: break-word !important;
+}
+
+.text-preview .paragraph {
+    white-space: pre-wrap !important;
+    word-wrap: break-word !important;
+    word-break: break-word !important;
+}
