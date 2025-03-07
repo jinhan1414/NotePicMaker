@@ -69,83 +69,20 @@ button {
     background-color: white;
 }
 
-.header {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    margin-bottom: 15px;
-    padding-bottom: 3px;
-    border-bottom: 0.5px solid rgba(134, 45, 45, 0.5);
-}
-
-.header-left {
-    display: flex;
-    align-items: flex-start;
-    gap: 8px;
-    position: relative;
-}
-
-.logo-text {
-    font-size: 18px;
-    color: #222;
-    font-weight: bold;
-    letter-spacing: 1px;
-    line-height: 1.2;
-}
-
-.logo-subtitle {
-    font-size: 10px;
-    color: #862d2d;
-    margin-top: 2px;
-    font-weight: 300;
-    letter-spacing: 0.5px;
-    font-family: 'Segoe Script', 'Bradley Hand', 'Brush Script MT', cursive;
-    transform: scale(0.9);
-    margin-left: -3px;
-    line-height: 1;
-}
-
-.seal {
-    width: 35px;
-    height: 35px;
-    object-fit: contain;
-    margin-top: -2px;
+.text-preview br {
+    content: '';
     display: block;
-    position: relative;
-    top: 0;
-}
-
-.header-right {
-    font-size: 13px;
-    color: #222;
-    padding-top: 3px;
-    font-weight: 300;
-}
-
-.content-title {
-    font-size: 24px;
-    color: #222;
-    text-align: center;
-    margin: 20px 0 30px;
-    font-weight: bold;
-    font-family: "KaiTi", "楷体", serif;
-    letter-spacing: 2px;
-    position: relative;
-}
-
-.content-title::before,
-.content-title::after {
-    content: "";
-    color: #862d2d;
-    margin: 0 15px;
-    opacity: 0.6;
+    margin-top: 15px;
 }
 
 .paragraph {
-    /* margin-bottom: 15px; */
     color: #333;
     font-size: 18px;
     line-height: 1.8;
+}
+
+.paragraph:last-child {
+    margin-bottom: 0;
 }
 
 .paragraph-number {
@@ -584,4 +521,82 @@ button {
 
 [data-theme="dark"] .tox-edit-area__iframe {
     background-color: #1e1e1e !important;
+}
+
+.header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    padding-bottom: 3px;
+    border-bottom: 0.5px solid rgba(134, 45, 45, 0.5);
+}
+
+.header-left {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    position: relative;
+}
+
+.logo-text {
+    font-size: 18px;
+    color: #222;
+    font-weight: bold;
+    letter-spacing: 1px;
+    line-height: 1.2;
+}
+
+.logo-subtitle {
+    font-size: 10px;
+    color: #862d2d;
+    margin-top: 2px;
+    font-weight: 300;
+    letter-spacing: 0.5px;
+    font-family: 'Segoe Script', 'Bradley Hand', 'Brush Script MT', cursive;
+    transform: scale(0.9);
+    margin-left: -3px;
+    line-height: 1;
+}
+
+.seal {
+    width: 35px;
+    height: 35px;
+    object-fit: contain;
+    margin-top: -2px;
+    display: block;
+    position: relative;
+    top: 0;
+}
+
+.header-right {
+    font-size: 13px;
+    color: #222;
+    padding-top: 3px;
+    font-weight: 300;
+}
+
+.content-title {
+    font-size: 24px;
+    color: #222;
+    text-align: center;
+    margin: 20px 0 30px;
+    font-weight: bold;
+    font-family: "KaiTi", "楷体", serif;
+    letter-spacing: 2px;
+    position: relative;
+}
+
+.content-title::before,
+.content-title::after {
+    content: "";
+    color: #862d2d;
+    margin: 0 15px;
+    opacity: 0.6;
+}
+
+.text-preview br {
+    content: '';
+    display: block;
+    margin-top: 15px;
 }

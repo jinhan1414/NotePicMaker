@@ -17,10 +17,20 @@ export class MarkedNoteRenderer extends BaseRenderer {
             this.container.appendChild(title);
 
             paragraphs.slice(1).forEach(paragraph => {
-                const p = document.createElement('div');
-                p.className = 'paragraph';
-                p.innerHTML = this.parseMarkedText(paragraph);
-                this.container.appendChild(p);
+                // 如果是<br>标签，直接添加换行
+                if (paragraph.trim() === '<br>') {
+                    const br = document.createElement('br');
+                    this.container.appendChild(br);
+                    return;
+                }
+
+                // 其他内容正常渲染
+                if (paragraph.trim()) {
+                    const p = document.createElement('div');
+                    p.className = 'paragraph';
+                    p.innerHTML = this.parseMarkedText(paragraph);
+                    this.container.appendChild(p);
+                }
             });
 
             // 使用基类的引导关注区域

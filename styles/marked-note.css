@@ -1,6 +1,5 @@
 /* 标记文本样式 */
 .paragraph {
-    margin-top: 15px;
     white-space: pre-wrap;
 }
 
