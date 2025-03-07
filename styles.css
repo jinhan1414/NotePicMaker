@@ -76,9 +76,14 @@ button {
 }
 
 .paragraph {
-    color: #333;
-    font-size: 18px;
-    line-height: 1.8;
+    color: #2c3e50;
+    font-size: 20px;
+    line-height: 2;
+    font-family: "PingFang SC", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+    letter-spacing: 0.5px;
+    margin-bottom: 1px;
+    text-align: justify;
+    font-weight: 400;
 }
 
 .paragraph:last-child {
@@ -86,7 +91,10 @@ button {
 }
 
 .paragraph-number {
-    margin-right: 10px;
+    margin-right: 12px;
+    color: #862d2d;
+    font-weight: 500;
+    font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
 }
 
 .preview-header {
@@ -599,4 +607,37 @@ button {
     content: '';
     display: block;
     margin-top: 15px;
+}
+
+.preview-controls {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.width-control {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: #333;
+}
+
+.width-control input {
+    width: 60px;
+    padding: 4px 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    color: #333;
+}
+
+.width-control input:focus {
+    outline: none;
+    border-color: #862d2d;
+    box-shadow: 0 0 0 2px rgba(134, 45, 45, 0.1);
+}
+
+.width-control span {
+    color: #666;
 }

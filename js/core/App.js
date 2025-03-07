@@ -59,10 +59,17 @@ export class App {
         // 恢复保存的数据
         const savedText = StorageManager.get(StorageManager.keys.TEXT) || '';
         const savedRichText = StorageManager.get(StorageManager.keys.RICH_TEXT) || '';
+        const savedWidth = StorageManager.get(StorageManager.keys.PREVIEW_WIDTH) || '515';
         
         this.ui.elements.textInput.value = savedText;
         if (this.ui.elements.insightInput) {
             this.ui.elements.insightInput.value = StorageManager.get(StorageManager.keys.INSIGHT) || '';
+        }
+        
+        // 恢复预览区域宽度
+        if (this.ui.elements.previewWidth && this.ui.elements.previewArea) {
+            this.ui.elements.previewWidth.value = savedWidth;
+            this.ui.elements.previewArea.style.width = `${savedWidth}px`;
         }
         
         // 恢复样式选择
@@ -98,6 +105,17 @@ export class App {
         this.ui.elements.textInput.addEventListener('input', () => this.handleTextInput());
         if (this.ui.elements.insightInput) {
             this.ui.elements.insightInput.addEventListener('input', () => this.handleInsightInput());
+        }
+        
+        // 宽度调整
+        if (this.ui.elements.previewWidth) {
+            this.ui.elements.previewWidth.addEventListener('input', (e) => {
+                const width = parseInt(e.target.value);
+                if (width >= 300 && width <= 1000) {
+                    this.ui.elements.previewArea.style.width = `${width}px`;
+                    StorageManager.set(StorageManager.keys.PREVIEW_WIDTH, width);
+                }
+            });
         }
         
         // 导出功能

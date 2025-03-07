@@ -8,6 +8,8 @@ export class UIManager {
             exportBtn: document.getElementById('exportBtn'),
             styleButtons: document.querySelectorAll('.style-btn'),
             richTextEditor: document.getElementById('richTextEditor'),
+            previewArea: document.getElementById('previewArea'),
+            previewWidth: document.getElementById('previewWidth'),
             poetryInsightWrapper: document.querySelector('.poetry-insight-wrapper'),
             themeOptions: document.querySelectorAll('.theme-option'),
             themeInputs: document.querySelectorAll('input[name="theme"]'),

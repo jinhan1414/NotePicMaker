@@ -4,7 +4,8 @@ export const StorageManager = {
         RICH_TEXT: 'rich_note_text',
         INSIGHT: 'poetry_insight',
         STYLE: 'current_style',
-        THEME: 'current_theme'
+        THEME: 'current_theme',
+        PREVIEW_WIDTH: 'preview_width'
     },
     
     get(key) {
